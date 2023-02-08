@@ -1,0 +1,15 @@
+@use "../abstracts/variables" as *;
+
+button[type="submit"] {
+  text-transform: capitalize;
+  background-color: $deep-violet-color;
+  color: $white-color;
+  border-radius: 8px;
+  border: none;
+  outline: 0;
+  width: 100%;
+  font-size: 1.125rem;
+  line-height: 1;
+  padding: 0.9375rem;
+  margin-top: 1.75rem;
+}

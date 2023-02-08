@@ -5,6 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Card Details Form</title>
+    <link rel="icon" href="./images/favicon-32x32.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body></body>
+  <body>
+    <section class="interactive-card">
+      <div class="interactive-card__side back-side"></div>
+      <div class="interactive-card__side front-side"></div>
+    </section>
+    <main>
+      <form class="card-form">
+        <div class="input-group">
+          <label for="">Cardholder name</label>
+          <input type="text" placeholder="e.g. Jane Appleseed" required />
+        </div>
+        <div class="input-group">
+          <label for="">Car Number</label>
+          <input
+            type="number"
+            placeholder="e.g. 1234 5678 9123 0000"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <label for="">Exp. Date (mm/yy)</label>
+          <input type="number" placeholder="MM" required />
+          <input type="number" placeholder="YY" required />
+        </div>
+        <div class="input-group">
+          <label for="">CVC</label>
+          <input type="number" placeholder="e.g. 123" required />
+        </div>
+        <button type="submit">Confirm</button>
+      </form>
+    </main>
+  </body>
 </html>
