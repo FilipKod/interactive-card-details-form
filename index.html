@@ -18,8 +18,20 @@
   </head>
   <body>
     <section class="interactive-card">
-      <div class="interactive-card__side back-side"></div>
-      <div class="interactive-card__side front-side"></div>
+      <div class="card-wrap">
+        <div class="interactive-card__side back-side-card">
+          <span class="cvc-number">123</span>
+        </div>
+        <div class="interactive-card__side front-side-card">
+          <div class="card-info">
+            <p class="card-info__number">0000 0000 0000 0000</p>
+            <div class="card-info__bottom">
+              <span class="card-info__name">Filip Madunicky</span>
+              <span class="card-info__expiration">05/26</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <main>
       <form class="card-form">
@@ -28,19 +40,33 @@
           <input type="text" placeholder="e.g. Jane Appleseed" required />
         </div>
         <div class="input-group">
-          <label for="">Car Number</label>
+          <label for="">Card Number</label>
           <input
             type="number"
             placeholder="e.g. 1234 5678 9123 0000"
             required
           />
         </div>
-        <div class="input-group">
+        <div class="input-group half-col expire-inputs">
           <label for="">Exp. Date (mm/yy)</label>
-          <input type="number" placeholder="MM" required />
-          <input type="number" placeholder="YY" required />
+          <input
+            type="number"
+            placeholder="MM"
+            required
+            name="month_expire"
+            min="01"
+            max="12"
+          />
+          <input
+            type="number"
+            placeholder="YY"
+            required
+            name="year_expire"
+            min="23"
+            max="99"
+          />
         </div>
-        <div class="input-group">
+        <div class="input-group half-col">
           <label for="">CVC</label>
           <input type="number" placeholder="e.g. 123" required />
         </div>

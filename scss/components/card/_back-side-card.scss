@@ -1,0 +1,16 @@
+@use "../../abstracts/variables" as *;
+
+.back-side-card {
+  top: 2rem;
+  right: 0;
+  background-image: url("../../images/bg-card-back.png");
+
+  .cvc-number {
+    color: $white-color;
+    position: absolute;
+    font-size: 0.65rem;
+    letter-spacing: 0.080625rem;
+    right: 2.375rem;
+    top: 4.5625rem;
+  }
+}

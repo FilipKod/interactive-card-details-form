@@ -1,0 +1,36 @@
+@use "../abstracts/variables" as *;
+
+input[type="text"],
+input[type="number"] {
+  border-radius: 8px;
+  background-color: $white-color;
+  border: 1px solid $light-grey-color;
+  font-size: 1.125rem;
+  padding: 0.6875rem 1rem;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.input-group {
+  flex: 1 1 auto;
+  width: 100%;
+
+  &.half-col {
+    flex: 1;
+  }
+}
+
+.expire-inputs {
+  display: flex;
+  gap: 0 0.5rem;
+  flex-wrap: wrap;
+
+  & > input {
+    flex: 1;
+
+    // &:first-of-type {
+    //   margin-right: 0.5rem;
+    // }
+  }
+}

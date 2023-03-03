@@ -1,0 +1,38 @@
+@use "../../abstracts/variables" as *;
+
+.front-side-card {
+  top: 120px;
+  left: 0;
+  background-image: url("../../images/bg-card-front.png");
+  padding: 1.25rem;
+  color: $white-color;
+  display: flex;
+  align-items: end;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background-image: url("../../images/card-logo.svg");
+    width: 54px;
+    height: 30px;
+    background-size: cover;
+    top: 1.25rem;
+  }
+
+  .card-info {
+    text-transform: uppercase;
+
+    &__number {
+      font-size: 1.125rem;
+      letter-spacing: 0.1375rem;
+      margin: 0 0 1rem;
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 0.080625rem;
+      font-size: 0.65rem;
+    }
+  }
+}

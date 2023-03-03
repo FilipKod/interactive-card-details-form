@@ -1,0 +1,23 @@
+.interactive-card {
+  width: 100vw;
+  min-height: 240px;
+  height: 240px;
+  aspect-ratio: 1.5625;
+  background-image: url("../../images/bg-main-mobile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__side {
+    position: absolute;
+    width: 286px;
+    height: 157px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .card-wrap {
+    position: relative;
+    width: 343px;
+    margin: auto;
+  }
+}
