@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "sass:dev": "sass --watch --style=expanded ./scss/main.scss ./css/styles.css",
+    "ts:watch": "tsc --watch",
     "prefix": "postcss ./css/styles.css --use autoprefixer -d ./css/",
     "sass:prod": "sass --no-source-map --style=compressed scss/main.scss css/styles.css & npm run prefix"
   },
@@ -15,6 +16,7 @@
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
-    "sass": "^1.56.1"
+    "sass": "^1.56.1",
+    "typescript": "^4.9.5"
   }
 }

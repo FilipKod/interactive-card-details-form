@@ -380,6 +380,7 @@ main {
 }
 .front-side-card .card-info {
   text-transform: uppercase;
+  width: 100%;
 }
 .front-side-card .card-info__number {
   font-size: 1.125rem;
@@ -391,6 +392,9 @@ main {
   justify-content: space-between;
   letter-spacing: 0.080625rem;
   font-size: 0.65rem;
+}
+.front-side-card .card-info__bottom p {
+  margin: 0;
 }
 
 .card-form {
@@ -417,15 +421,23 @@ button[type=submit] {
 }
 
 input[type=text],
-input[type=number] {
+input[type=tel] {
   border-radius: 8px;
   background-color: #ffffff;
   border: 1px solid #dfdee0;
   font-size: 1.125rem;
   padding: 0.6875rem 1rem;
   width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
+}
+input[type=text]:focus,
+input[type=tel]:focus {
+  outline: 0;
+  border: 1px solid transparent !important;
+  background: linear-gradient(#fff, #fff) padding-box, linear-gradient(rgb(99, 72, 254), rgb(97, 5, 149)) border-box;
+}
+input[type=text].error,
+input[type=tel].error {
+  border: 1px solid #ff5050;
 }
 
 .input-group {
@@ -435,6 +447,13 @@ input[type=number] {
 .input-group.half-col {
   flex: 1;
 }
+.input-group .error-message {
+  color: #ff5050;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: none;
+  margin: 0.5rem 0 0;
+}
 
 .expire-inputs {
   display: flex;
@@ -443,6 +462,7 @@ input[type=number] {
 }
 .expire-inputs > input {
   flex: 1;
+  text-align: center;
 }
 
 label {

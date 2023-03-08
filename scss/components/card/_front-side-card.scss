@@ -21,6 +21,7 @@
 
   .card-info {
     text-transform: uppercase;
+    width: 100%;
 
     &__number {
       font-size: 1.125rem;
@@ -33,6 +34,10 @@
       justify-content: space-between;
       letter-spacing: 0.080625rem;
       font-size: 0.65rem;
+
+      p {
+        margin: 0;
+      }
     }
   }
 }

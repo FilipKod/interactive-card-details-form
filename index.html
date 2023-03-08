@@ -20,14 +20,19 @@
     <section class="interactive-card">
       <div class="card-wrap">
         <div class="interactive-card__side back-side-card">
-          <span class="cvc-number">123</span>
+          <span class="cvc-number" id="cardCVCPreview">000</span>
         </div>
         <div class="interactive-card__side front-side-card">
           <div class="card-info">
-            <p class="card-info__number">0000 0000 0000 0000</p>
+            <p class="card-info__number" id="cardNumberPreview">
+              0000 0000 0000 0000
+            </p>
             <div class="card-info__bottom">
-              <span class="card-info__name">Filip Madunicky</span>
-              <span class="card-info__expiration">05/26</span>
+              <p class="card-info__name" id="cardHolderPreview">
+                Jane AppleSeed
+              </p>
+              </p>
+              <p class="card-info__expiration"><span id="expireMonthPreview">00</span>/<span id="expireYearPreview">00</span></p>
             </div>
           </div>
         </div>
@@ -36,42 +41,63 @@
     <main>
       <form class="card-form">
         <div class="input-group">
-          <label for="">Cardholder name</label>
-          <input type="text" placeholder="e.g. Jane Appleseed" required />
+          <label for="cardHolder">Cardholder name</label>
+          <input
+            id="cardHolder"
+            type="text"
+            maxlength="24"
+            placeholder="e.g. Jane Appleseed"
+            autocomplete="cc-name"
+          />
         </div>
         <div class="input-group">
-          <label for="">Card Number</label>
+          <label for="cardNumber">Card Number</label>
           <input
-            type="number"
+            type="tel"
             placeholder="e.g. 1234 5678 9123 0000"
-            required
+            autocomplete="cc-number"
+            inputmode="numeric"
+            name="card-number"
+            id="cardNumber"
+            pattern="\d"
+            maxlength="19"
           />
         </div>
         <div class="input-group half-col expire-inputs">
-          <label for="">Exp. Date (mm/yy)</label>
+          <label for="cardExpMonth">Exp. Date (mm/yy)</label>
           <input
-            type="number"
+            type="tel"
             placeholder="MM"
-            required
             name="month_expire"
-            min="01"
-            max="12"
+            autocomplete="cc-exp-month"
+            minlength="1"
+            maxlength="2"
+            id="cardExpMonth"
           />
           <input
-            type="number"
+            type="tel"
             placeholder="YY"
-            required
             name="year_expire"
-            min="23"
-            max="99"
+            autocomplete="cc-exp-year"
+            minlength="1"
+            maxlength="2"
+            id="cardExpYear"
           />
         </div>
         <div class="input-group half-col">
-          <label for="">CVC</label>
-          <input type="number" placeholder="e.g. 123" required />
+          <label for="cardCVC">CVC</label>
+          <input
+            type="tel"
+            placeholder="e.g. 123"
+            autocomplete="cc-csc"
+            name="cvc"
+            id="cardCVC"
+            maxlength="3"
+          />
         </div>
-        <button type="submit">Confirm</button>
+        <button type="submit" id="confirmButton">Confirm</button>
       </form>
     </main>
+    <script src="./main.js"></script>
   </body>
 </html>
