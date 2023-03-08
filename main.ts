@@ -107,20 +107,25 @@ function formSubmit(event: Event) {
 
 function validateIfEmpty(inputElement: HTMLInputElement | null) {
   if (inputElement) {
+    const errorM = errorMessage("Can’t be blank");
     if (inputElement.value === "") {
-      const errorBlock = document.createElement("p");
-      const textError = document.createTextNode("Can’t be blank");
-
-      errorBlock.classList.add("error-message");
-      errorBlock.appendChild(textError);
-
       inputElement.classList.add("error");
-
-      inputElement.parentNode?.appendChild(errorBlock);
+      if (inputElement.parentNode?.querySelector("p.error-message") === null) {
+        inputElement.parentNode?.appendChild(errorM);
+      }
     } else {
       inputElement.removeAttribute("class");
+      inputElement.parentNode?.lastChild?.remove();
     }
   }
+}
+
+function errorMessage(text: string): HTMLParagraphElement {
+  const paragraphElement = document.createElement("p");
+  paragraphElement.classList.add("error-message");
+  paragraphElement.innerText = text;
+
+  return paragraphElement;
 }
 
 function setPreview(

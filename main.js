@@ -82,20 +82,26 @@ function formSubmit(event) {
     validateIfEmpty(cardCvcInput);
 }
 function validateIfEmpty(inputElement) {
-    var _a;
+    var _a, _b, _c, _d;
     if (inputElement) {
+        const errorM = errorMessage("Can’t be blank");
         if (inputElement.value === "") {
-            const errorBlock = document.createElement("p");
-            const textError = document.createTextNode("Can’t be blank");
-            errorBlock.classList.add("error-message");
-            errorBlock.appendChild(textError);
             inputElement.classList.add("error");
-            (_a = inputElement.parentNode) === null || _a === void 0 ? void 0 : _a.appendChild(errorBlock);
+            if (((_a = inputElement.parentNode) === null || _a === void 0 ? void 0 : _a.querySelector("p.error-message")) === null) {
+                (_b = inputElement.parentNode) === null || _b === void 0 ? void 0 : _b.appendChild(errorM);
+            }
         }
         else {
             inputElement.removeAttribute("class");
+            (_d = (_c = inputElement.parentNode) === null || _c === void 0 ? void 0 : _c.lastChild) === null || _d === void 0 ? void 0 : _d.remove();
         }
     }
+}
+function errorMessage(text) {
+    const paragraphElement = document.createElement("p");
+    paragraphElement.classList.add("error-message");
+    paragraphElement.innerText = text;
+    return paragraphElement;
 }
 function setPreview(event, previewElement, defaultValue) {
     const target = event.target;
