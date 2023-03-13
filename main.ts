@@ -37,11 +37,11 @@ const initExpireYearPreview =
 const initCvcPreview = cardCvcPreview && cardCvcPreview.innerText;
 
 // Start with empty input values
-if (cardHolderInput) cardHolderInput.value = "";
-if (cardNumberInput) cardNumberInput.value = "";
-if (cardExpireMonthInput) cardExpireMonthInput.value = "";
-if (cardExpireYearInput) cardExpireYearInput.value = "";
-if (cardCvcInput) cardCvcInput.value = "";
+// if (cardHolderInput) cardHolderInput.value = "";
+// if (cardNumberInput) cardNumberInput.value = "";
+// if (cardExpireMonthInput) cardExpireMonthInput.value = "";
+// if (cardExpireYearInput) cardExpireYearInput.value = "";
+// if (cardCvcInput) cardCvcInput.value = "";
 
 cardHolderInput?.addEventListener("input", function (event) {
   const target = event.target as HTMLInputElement | null;
@@ -95,37 +95,90 @@ cardCvcInput?.addEventListener("input", function (event) {
 // formButton?.addEventListener("submit", formSubmit);
 formButton?.addEventListener("click", formSubmit);
 
+const emptyErrorMessage = "Can't be blank";
+const wrongFormatErrorMessage = "Wrong format, number only";
+
 function formSubmit(event: Event) {
   event.preventDefault();
 
-  validateIfEmpty(cardHolderInput);
-  validateIfEmpty(cardNumberInput);
-  validateIfEmpty(cardExpireMonthInput);
-  validateIfEmpty(cardExpireYearInput);
-  validateIfEmpty(cardCvcInput);
+  // validateCardHolder();
+  validateCardNumber();
+  // validateExpireDate();
 }
 
-function validateIfEmpty(inputElement: HTMLInputElement | null) {
-  if (inputElement) {
-    const errorM = errorMessage("Can’t be blank");
-    if (inputElement.value === "") {
-      inputElement.classList.add("error");
-      if (inputElement.parentNode?.querySelector("p.error-message") === null) {
-        inputElement.parentNode?.appendChild(errorM);
-      }
+function validateCardHolder() {
+  if (cardHolderInput) {
+    if (!cardHolderInput.value.length) {
+      setErrorMessage(cardHolderInput, emptyErrorMessage);
+    } else if (new RegExp(/[^a-z A-Z]/g).test(cardHolderInput.value)) {
+      setErrorMessage(
+        cardHolderInput,
+        "Wrong format, alphabetical and space only"
+      );
     } else {
-      inputElement.removeAttribute("class");
-      inputElement.parentNode?.lastChild?.remove();
+      removeErrorMessage(cardHolderInput);
     }
   }
 }
 
-function errorMessage(text: string): HTMLParagraphElement {
-  const paragraphElement = document.createElement("p");
-  paragraphElement.classList.add("error-message");
-  paragraphElement.innerText = text;
+function validateCardNumber() {
+  if (cardNumberInput) {
+    if (!cardNumberInput.value.length) {
+      setErrorMessage(cardNumberInput, emptyErrorMessage);
+    } else if (
+      new RegExp(/[^0-9]/).test(cardNumberInput.value.replace(/ /g, ""))
+    ) {
+      setErrorMessage(cardNumberInput, wrongFormatErrorMessage);
+    } else {
+      removeErrorMessage(cardNumberInput);
+    }
+  }
+}
 
-  return paragraphElement;
+function validateExpireDate() {
+  if (cardExpireMonthInput && cardExpireYearInput) {
+    if (!cardExpireMonthInput.value.length) {
+      setErrorMessage(cardExpireMonthInput, emptyErrorMessage);
+    } else {
+      removeErrorMessage(cardExpireMonthInput);
+    }
+
+    if (!cardExpireYearInput.value.length) {
+      setErrorMessage(cardExpireYearInput, emptyErrorMessage);
+    } else {
+      removeErrorMessage(cardExpireYearInput);
+    }
+  }
+}
+
+function setErrorMessage(inputElement: HTMLInputElement, text: string) {
+  if (inputElement.parentNode) {
+    console.log(inputElement);
+    removeErrorParagraph(inputElement);
+
+    const errorElement = document.createElement("p");
+    errorElement.classList.add("error-message");
+    errorElement.innerText = text;
+
+    inputElement.parentNode.appendChild(errorElement);
+    inputElement.classList.add("error");
+  }
+}
+
+function removeErrorMessage(inputElement: HTMLInputElement) {
+  console.log("dsa");
+  if (inputElement.parentNode) {
+    inputElement.removeAttribute("class");
+    removeErrorParagraph(inputElement);
+  }
+}
+
+function removeErrorParagraph(inputElement: HTMLInputElement) {
+  inputElement.parentNode
+    ?.querySelectorAll("p.error-message")
+    .forEach((errorParagraph) => {
+      errorParagraph.remove();
+    });
 }
 
 function setPreview(

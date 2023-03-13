@@ -20,16 +20,11 @@ const initExpireMonthPreview = cardExpireMonthPreview && cardExpireMonthPreview.
 const initExpireYearPreview = cardExpireYearPreview && cardExpireYearPreview.innerText;
 const initCvcPreview = cardCvcPreview && cardCvcPreview.innerText;
 // Start with empty input values
-if (cardHolderInput)
-    cardHolderInput.value = "";
-if (cardNumberInput)
-    cardNumberInput.value = "";
-if (cardExpireMonthInput)
-    cardExpireMonthInput.value = "";
-if (cardExpireYearInput)
-    cardExpireYearInput.value = "";
-if (cardCvcInput)
-    cardCvcInput.value = "";
+// if (cardHolderInput) cardHolderInput.value = "";
+// if (cardNumberInput) cardNumberInput.value = "";
+// if (cardExpireMonthInput) cardExpireMonthInput.value = "";
+// if (cardExpireYearInput) cardExpireYearInput.value = "";
+// if (cardCvcInput) cardCvcInput.value = "";
 cardHolderInput === null || cardHolderInput === void 0 ? void 0 : cardHolderInput.addEventListener("input", function (event) {
     const target = event.target;
     if (target) {
@@ -73,35 +68,79 @@ cardCvcInput === null || cardCvcInput === void 0 ? void 0 : cardCvcInput.addEven
 });
 // formButton?.addEventListener("submit", formSubmit);
 formButton === null || formButton === void 0 ? void 0 : formButton.addEventListener("click", formSubmit);
+const emptyErrorMessage = "Can't be blank";
+const wrongFormatErrorMessage = "Wrong format, number only";
 function formSubmit(event) {
     event.preventDefault();
-    validateIfEmpty(cardHolderInput);
-    validateIfEmpty(cardNumberInput);
-    validateIfEmpty(cardExpireMonthInput);
-    validateIfEmpty(cardExpireYearInput);
-    validateIfEmpty(cardCvcInput);
+    // validateCardHolder();
+    validateCardNumber();
+    // validateExpireDate();
 }
-function validateIfEmpty(inputElement) {
-    var _a, _b, _c, _d;
-    if (inputElement) {
-        const errorM = errorMessage("Can’t be blank");
-        if (inputElement.value === "") {
-            inputElement.classList.add("error");
-            if (((_a = inputElement.parentNode) === null || _a === void 0 ? void 0 : _a.querySelector("p.error-message")) === null) {
-                (_b = inputElement.parentNode) === null || _b === void 0 ? void 0 : _b.appendChild(errorM);
-            }
+function validateCardHolder() {
+    if (cardHolderInput) {
+        if (!cardHolderInput.value.length) {
+            setErrorMessage(cardHolderInput, emptyErrorMessage);
+        }
+        else if (new RegExp(/[^a-z A-Z]/g).test(cardHolderInput.value)) {
+            setErrorMessage(cardHolderInput, "Wrong format, alphabetical and space only");
         }
         else {
-            inputElement.removeAttribute("class");
-            (_d = (_c = inputElement.parentNode) === null || _c === void 0 ? void 0 : _c.lastChild) === null || _d === void 0 ? void 0 : _d.remove();
+            removeErrorMessage(cardHolderInput);
         }
     }
 }
-function errorMessage(text) {
-    const paragraphElement = document.createElement("p");
-    paragraphElement.classList.add("error-message");
-    paragraphElement.innerText = text;
-    return paragraphElement;
+function validateCardNumber() {
+    if (cardNumberInput) {
+        if (!cardNumberInput.value.length) {
+            setErrorMessage(cardNumberInput, emptyErrorMessage);
+        }
+        else if (new RegExp(/[^0-9]/).test(cardNumberInput.value.replace(/ /g, ""))) {
+            setErrorMessage(cardNumberInput, wrongFormatErrorMessage);
+        }
+        else {
+            removeErrorMessage(cardNumberInput);
+        }
+    }
+}
+function validateExpireDate() {
+    if (cardExpireMonthInput && cardExpireYearInput) {
+        if (!cardExpireMonthInput.value.length) {
+            setErrorMessage(cardExpireMonthInput, emptyErrorMessage);
+        }
+        else {
+            removeErrorMessage(cardExpireMonthInput);
+        }
+        if (!cardExpireYearInput.value.length) {
+            setErrorMessage(cardExpireYearInput, emptyErrorMessage);
+        }
+        else {
+            removeErrorMessage(cardExpireYearInput);
+        }
+    }
+}
+function setErrorMessage(inputElement, text) {
+    if (inputElement.parentNode) {
+        console.log(inputElement);
+        removeErrorParagraph(inputElement);
+        const errorElement = document.createElement("p");
+        errorElement.classList.add("error-message");
+        errorElement.innerText = text;
+        inputElement.parentNode.appendChild(errorElement);
+        inputElement.classList.add("error");
+    }
+}
+function removeErrorMessage(inputElement) {
+    console.log("dsa");
+    if (inputElement.parentNode) {
+        inputElement.removeAttribute("class");
+        removeErrorParagraph(inputElement);
+    }
+}
+function removeErrorParagraph(inputElement) {
+    var _a;
+    (_a = inputElement.parentNode) === null || _a === void 0 ? void 0 : _a.querySelectorAll("p.error-message").forEach((errorParagraph) => {
+        errorParagraph.remove();
+    });
 }
 function setPreview(event, previewElement, defaultValue) {
     const target = event.target;

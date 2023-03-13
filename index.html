@@ -39,10 +39,11 @@
       </div>
     </section>
     <main>
-      <form class="card-form">
+      <form class="card-form" method="post">
         <div class="input-group">
           <label for="cardHolder">Cardholder name</label>
           <input
+            class="capitalize"
             id="cardHolder"
             type="text"
             maxlength="24"
@@ -59,7 +60,6 @@
             inputmode="numeric"
             name="card-number"
             id="cardNumber"
-            pattern="\d"
             maxlength="19"
           />
         </div>

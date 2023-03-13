@@ -324,6 +324,10 @@ main {
   padding: 0 1.5rem;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .interactive-card {
   width: 100vw;
   min-height: 240px;
@@ -446,6 +450,7 @@ input[type=tel].error {
 }
 .input-group.half-col {
   flex: 1;
+  align-content: baseline;
 }
 .input-group .error-message {
   color: #ff5050;
