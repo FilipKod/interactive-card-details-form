@@ -1,7 +1,12 @@
+@use "../abstracts/mixins" as *;
+
 .card-form {
   text-transform: uppercase;
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem 0.6875rem;
-  // display: none;
+
+  @include desktop-only {
+    gap: 1.625rem 0.6875rem;
+  }
 }

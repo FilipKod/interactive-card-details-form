@@ -1,4 +1,5 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
 .btn {
   text-transform: capitalize;
@@ -14,4 +15,8 @@
   margin-top: 0.5rem;
   display: block;
   cursor: pointer;
+
+  @include desktop-only {
+    margin-top: 0.875rem;
+  }
 }
