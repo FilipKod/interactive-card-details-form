@@ -17,87 +17,104 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <section class="interactive-card">
-      <div class="card-wrap">
-        <div class="interactive-card__side back-side-card">
-          <span class="cvc-number" id="cardCVCPreview">000</span>
-        </div>
-        <div class="interactive-card__side front-side-card">
-          <div class="card-info">
-            <p class="card-info__number" id="cardNumberPreview">
-              0000 0000 0000 0000
-            </p>
-            <div class="card-info__bottom">
-              <p class="card-info__name" id="cardHolderPreview">
-                Jane AppleSeed
+    <div class="__app">
+      <section class="interactive-card">
+        <div class="card-wrap">
+          <div class="interactive-card__side back-side-card">
+            <span class="cvc-number" id="cardCVCPreview">000</span>
+          </div>
+          <div class="interactive-card__side front-side-card">
+            <div class="card-info">
+              <p class="card-info__number" id="cardNumberPreview">
+                0000 0000 0000 0000
               </p>
-              </p>
-              <p class="card-info__expiration"><span id="expireMonthPreview">00</span>/<span id="expireYearPreview">00</span></p>
+              <div class="card-info__bottom">
+                <p class="card-info__name" id="cardHolderPreview">
+                  Jane AppleSeed
+                </p>
+                </p>
+                <p class="card-info__expiration"><span id="expireMonthPreview">00</span>/<span id="expireYearPreview">00</span></p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <main>
-      <form class="card-form" method="post">
-        <div class="input-group">
-          <label for="cardHolder">Cardholder name</label>
-          <input
-            class="capitalize"
-            id="cardHolder"
-            type="text"
-            maxlength="24"
-            placeholder="e.g. Jane Appleseed"
-            autocomplete="cc-name"
-          />
+      </section>
+      <main>
+        <div class="container">
+          <form id="cardForm" class="card-form" method="post">
+            <div class="input-group">
+              <label for="cardHolder">Cardholder name</label>
+              <input
+                class="capitalize"
+                id="cardHolder"
+                type="text"
+                maxlength="24"
+                placeholder="e.g. Jane Appleseed"
+                autocomplete="cc-name"
+                spellcheck="false"
+              />
+            </div>
+            <div class="input-group">
+              <label for="cardNumber">Card Number</label>
+              <input
+                type="tel"
+                placeholder="e.g. 1234 5678 9123 0000"
+                autocomplete="cc-number"
+                inputmode="numeric"
+                name="card-number"
+                id="cardNumber"
+                maxlength="19"
+              />
+            </div>
+            <div class="input-group half-col expire-inputs">
+              <label for="cardExpMonth">Exp. Date (mm/yy)</label>
+              <input
+                type="tel"
+                placeholder="MM"
+                name="month_expire"
+                autocomplete="cc-exp-month"
+                minlength="1"
+                maxlength="2"
+                id="cardExpMonth"
+              />
+              <input
+                type="tel"
+                placeholder="YY"
+                name="year_expire"
+                autocomplete="cc-exp-year"
+                minlength="1"
+                maxlength="2"
+                id="cardExpYear"
+              />
+            </div>
+            <div class="input-group half-col">
+              <label for="cardCVC">CVC</label>
+              <input
+                type="tel"
+                placeholder="e.g. 123"
+                autocomplete="cc-csc"
+                name="cvc"
+                id="cardCVC"
+                maxlength="3"
+              />
+            </div>
+            <button type="submit" id="confirmButton" class="btn">Confirm</button>
+          </form>
+          <div id="cardComplete" class="card-complete hide">
+            <div class="card-complete__wrap">
+              <img 
+                src="./images/icon-complete.svg" 
+                alt="icon complete" 
+                class="card-complete__icon"
+              />
+              <h2 class="card-complete__title">Thank You!</h2>
+              <p class="card-complete__text">We've added your card details.</p>
+            </div>
+            <button class="btn">Continue</button>
+          </div>
         </div>
-        <div class="input-group">
-          <label for="cardNumber">Card Number</label>
-          <input
-            type="tel"
-            placeholder="e.g. 1234 5678 9123 0000"
-            autocomplete="cc-number"
-            inputmode="numeric"
-            name="card-number"
-            id="cardNumber"
-            maxlength="19"
-          />
-        </div>
-        <div class="input-group half-col expire-inputs">
-          <label for="cardExpMonth">Exp. Date (mm/yy)</label>
-          <input
-            type="tel"
-            placeholder="MM"
-            name="month_expire"
-            autocomplete="cc-exp-month"
-            minlength="1"
-            maxlength="2"
-            id="cardExpMonth"
-          />
-          <input
-            type="tel"
-            placeholder="YY"
-            name="year_expire"
-            autocomplete="cc-exp-year"
-            minlength="1"
-            maxlength="2"
-            id="cardExpYear"
-          />
-        </div>
-        <div class="input-group half-col">
-          <label for="cardCVC">CVC</label>
-          <input
-            type="tel"
-            placeholder="e.g. 123"
-            autocomplete="cc-csc"
-            name="cvc"
-            id="cardCVC"
-            maxlength="3"
-          />
-        </div>
-        <button type="submit" id="confirmButton">Confirm</button>
-      </form>
-    </main>
+      </main>
+    </div>
     <script src="./main.js"></script>
   </body>
 </html>

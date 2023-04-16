@@ -1,8 +1,8 @@
 @use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
 
 .back-side-card {
-  top: 2rem;
-  right: 0;
+  margin-left: auto;
   background-image: url("../../images/bg-card-back.png");
 
   .cvc-number {
@@ -12,5 +12,13 @@
     letter-spacing: 0.080625rem;
     right: 2.375rem;
     top: 4.5625rem;
+    font-weight: 500;
+
+    @include desktop-only {
+      font-size: 0.875rem;
+      top: 7rem;
+      right: 3.5rem;
+      letter-spacing: 0.125rem;
+    }
   }
 }

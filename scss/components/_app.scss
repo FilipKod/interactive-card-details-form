@@ -1,0 +1,9 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+@include desktop-only {
+  .__app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

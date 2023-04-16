@@ -1,0 +1,5 @@
+@mixin desktop-only {
+  @media screen and (min-width: 1050px) {
+    @content;
+  }
+}

@@ -1,0 +1,45 @@
+@use "../abstracts/variables" as *;
+
+.card-complete {
+  text-align: center;
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.75rem;
+    letter-spacing: 0.21375rem;
+    color: $deep-violet-color;
+    margin: 2.25rem 0 1rem;
+  }
+
+  &__text {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1;
+    color: $purplish-grey;
+    margin: 1rem 0 3rem;
+  }
+
+  &.show > &__wrap {
+    animation: showus 500ms;
+  }
+}
+
+.hide {
+  display: none;
+  // visibility: hidden;
+}
+
+.show {
+  display: block;
+  // visibility: visible;
+}
+
+@keyframes showus {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

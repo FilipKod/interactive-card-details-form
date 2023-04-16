@@ -1,3 +1,9 @@
+// Form and complete section
+const cardForm = document.getElementById("cardForm") as HTMLFormElement | null;
+const cardComplete = document.getElementById(
+  "cardComplete"
+) as HTMLDivElement | null;
+
 // Buttons
 const formButton = document.getElementById(
   "confirmButton"
@@ -37,11 +43,7 @@ const initExpireYearPreview =
 const initCvcPreview = cardCvcPreview && cardCvcPreview.innerText;
 
 // Start with empty input values
-// if (cardHolderInput) cardHolderInput.value = "";
-// if (cardNumberInput) cardNumberInput.value = "";
-// if (cardExpireMonthInput) cardExpireMonthInput.value = "";
-// if (cardExpireYearInput) cardExpireYearInput.value = "";
-// if (cardCvcInput) cardCvcInput.value = "";
+if (cardForm) cardForm.reset();
 
 cardHolderInput?.addEventListener("input", function (event) {
   const target = event.target as HTMLInputElement | null;
@@ -75,6 +77,13 @@ cardExpireMonthInput?.addEventListener("input", function (event) {
   setPreview(event, cardExpireMonthPreview, initExpireMonthPreview);
 });
 
+cardExpireMonthInput?.addEventListener("change", function (event) {
+  const target = event.target as HTMLInputElement | null;
+  if (target) {
+    target.value = target.value.replace(/^([1-9]{1})$/g, "0$1");
+  }
+});
+
 cardExpireYearInput?.addEventListener("input", function (event) {
   const target = event.target as HTMLInputElement | null;
   if (target) {
@@ -101,61 +110,112 @@ const wrongFormatErrorMessage = "Wrong format, number only";
 function formSubmit(event: Event) {
   event.preventDefault();
 
-  // validateCardHolder();
-  validateCardNumber();
-  // validateExpireDate();
+  removeAllErrorMessages();
+
+  const isHolderValid = validateCardHolder();
+  const isNumberValid = validateCardNumber();
+  const isMonthValid = validateExpireDateMonth();
+  const isYearValid = validateExpireDateYear();
+  const isCvcValid = validateCvc();
+
+  const isFormValid: boolean =
+    isHolderValid && isNumberValid && isMonthValid && isYearValid && isCvcValid;
+
+  if (isFormValid) showCompleteSection();
 }
 
-function validateCardHolder() {
+function validateCardHolder(): boolean {
   if (cardHolderInput) {
     if (!cardHolderInput.value.length) {
-      setErrorMessage(cardHolderInput, emptyErrorMessage);
+      return setErrorMessage(cardHolderInput, emptyErrorMessage);
     } else if (new RegExp(/[^a-z A-Z]/g).test(cardHolderInput.value)) {
-      setErrorMessage(
+      return setErrorMessage(
         cardHolderInput,
         "Wrong format, alphabetical and space only"
       );
-    } else {
-      removeErrorMessage(cardHolderInput);
+    } else if (cardHolderInput.value.length < 3) {
+      return setErrorMessage(
+        cardHolderInput,
+        "Cardholder name should be least 3 characters"
+      );
     }
+    return true;
   }
+  return false;
 }
 
-function validateCardNumber() {
+function validateCardNumber(): boolean {
   if (cardNumberInput) {
     if (!cardNumberInput.value.length) {
-      setErrorMessage(cardNumberInput, emptyErrorMessage);
+      return setErrorMessage(cardNumberInput, emptyErrorMessage);
     } else if (
-      new RegExp(/[^0-9]/).test(cardNumberInput.value.replace(/ /g, ""))
+      !new RegExp(/^[0-9]{16}$/).test(cardNumberInput.value.replace(/ /g, ""))
     ) {
-      setErrorMessage(cardNumberInput, wrongFormatErrorMessage);
-    } else {
-      removeErrorMessage(cardNumberInput);
+      return setErrorMessage(cardNumberInput, wrongFormatErrorMessage);
     }
+    return true;
   }
+  return false;
 }
 
-function validateExpireDate() {
-  if (cardExpireMonthInput && cardExpireYearInput) {
+function validateExpireDateMonth(): boolean {
+  if (cardExpireMonthInput) {
     if (!cardExpireMonthInput.value.length) {
-      setErrorMessage(cardExpireMonthInput, emptyErrorMessage);
-    } else {
-      removeErrorMessage(cardExpireMonthInput);
+      return setErrorMessage(cardExpireMonthInput, emptyErrorMessage);
+    } else if (!new RegExp(/[0-9]{2}/g).test(cardExpireMonthInput.value)) {
+      return setErrorMessage(
+        cardExpireMonthInput,
+        "Expiration month is incomplete."
+      );
+    } else if (+cardExpireMonthInput.value < 1) {
+      return setErrorMessage(
+        cardExpireMonthInput,
+        "Expiration month must be between 1 and 12."
+      );
     }
-
-    if (!cardExpireYearInput.value.length) {
-      setErrorMessage(cardExpireYearInput, emptyErrorMessage);
-    } else {
-      removeErrorMessage(cardExpireYearInput);
-    }
+    return true;
   }
+  return false;
 }
 
-function setErrorMessage(inputElement: HTMLInputElement, text: string) {
-  if (inputElement.parentNode) {
-    console.log(inputElement);
-    removeErrorParagraph(inputElement);
+function validateExpireDateYear(): boolean {
+  if (cardExpireYearInput) {
+    const actualYear = new Date().getFullYear().toString().slice(-2);
+    if (!cardExpireYearInput.value.length) {
+      return setErrorMessage(cardExpireYearInput, emptyErrorMessage);
+    } else if (!new RegExp(/[0-9]{2}/g).test(cardExpireYearInput.value)) {
+      return setErrorMessage(
+        cardExpireYearInput,
+        "Expiration year is incomplete."
+      );
+    } else if (+cardExpireYearInput.value < +actualYear) {
+      return setErrorMessage(
+        cardExpireYearInput,
+        "Expiration year is in the past."
+      );
+    }
+    return true;
+  }
+  return false;
+}
 
+function validateCvc(): boolean {
+  if (cardCvcInput) {
+    if (!cardCvcInput.value.length) {
+      return setErrorMessage(cardCvcInput, emptyErrorMessage);
+    } else if (!new RegExp(/^[0-9]{3}$/g).test(cardCvcInput.value)) {
+      return setErrorMessage(cardCvcInput, "Wrong format, 3 numbers required");
+    }
+    return true;
+  }
+  return false;
+}
+
+function setErrorMessage(
+  inputElement: HTMLInputElement,
+  text: string
+): boolean {
+  if (inputElement.parentNode) {
     const errorElement = document.createElement("p");
     errorElement.classList.add("error-message");
     errorElement.innerText = text;
@@ -163,22 +223,17 @@ function setErrorMessage(inputElement: HTMLInputElement, text: string) {
     inputElement.parentNode.appendChild(errorElement);
     inputElement.classList.add("error");
   }
+  return false;
 }
 
-function removeErrorMessage(inputElement: HTMLInputElement) {
-  console.log("dsa");
-  if (inputElement.parentNode) {
-    inputElement.removeAttribute("class");
-    removeErrorParagraph(inputElement);
-  }
-}
+function removeAllErrorMessages() {
+  document.querySelectorAll("p.error-message").forEach((errorMessage) => {
+    errorMessage.remove();
+  });
 
-function removeErrorParagraph(inputElement: HTMLInputElement) {
-  inputElement.parentNode
-    ?.querySelectorAll("p.error-message")
-    .forEach((errorParagraph) => {
-      errorParagraph.remove();
-    });
+  document.querySelectorAll("input.error").forEach((errorInput) => {
+    errorInput.classList.remove("error");
+  });
 }
 
 function setPreview(
@@ -189,5 +244,13 @@ function setPreview(
   const target = event.target as HTMLInputElement | null;
   if (previewElement && defaultValue && target) {
     previewElement.innerText = target.value || defaultValue;
+  }
+}
+
+function showCompleteSection() {
+  if (cardComplete && cardForm) {
+    cardForm.classList.add("hide");
+    cardComplete.classList.remove("hide");
+    cardComplete.classList.add("show");
   }
 }

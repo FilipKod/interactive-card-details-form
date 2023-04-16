@@ -1,13 +1,18 @@
 @use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
 
 .front-side-card {
-  top: 120px;
-  left: 0;
   background-image: url("../../images/bg-card-front.png");
   padding: 1.25rem;
   color: $white-color;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
+  margin-top: -69px;
+
+  @include desktop-only {
+    margin-top: 0;
+    padding: 1.75rem 2rem 1.65625rem;
+  }
 
   &::before {
     content: "";
@@ -17,6 +22,10 @@
     height: 30px;
     background-size: cover;
     top: 1.25rem;
+
+    @include desktop-only {
+      top: 1.75rem;
+    }
   }
 
   .card-info {
@@ -27,6 +36,12 @@
       font-size: 1.125rem;
       letter-spacing: 0.1375rem;
       margin: 0 0 1rem;
+
+      @include desktop-only {
+        font-size: 1.75rem;
+        letter-spacing: 0.21375rem;
+        margin: 0 0 1.59375rem;
+      }
     }
 
     &__bottom {
@@ -34,6 +49,11 @@
       justify-content: space-between;
       letter-spacing: 0.080625rem;
       font-size: 0.65rem;
+
+      @include desktop-only {
+        font-size: 0.875rem;
+        letter-spacing: 0.125rem;
+      }
 
       p {
         margin: 0;
