@@ -4,6 +4,7 @@ input[type="text"],
 input[type="tel"] {
   border-radius: 8px;
   background-color: $white-color;
+  color: $deep-violet-color;
   border: 1px solid $light-grey-color;
   font-size: 1.125rem;
   padding: 0.6875rem 1rem;
@@ -14,6 +15,11 @@ input[type="tel"] {
     border: 1px solid transparent !important;
     background: linear-gradient(#fff, #fff) padding-box,
       linear-gradient(rgba(99, 72, 254, 1), rgba(97, 5, 149, 1)) border-box;
+  }
+
+  &::placeholder {
+    opacity: 0.25;
+    text-transform: none;
   }
 
   &.error {
